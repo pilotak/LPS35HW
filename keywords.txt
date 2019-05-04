@@ -1,0 +1,9 @@
+LPS35HW	KEYWORD1
+begin	KEYWORD2
+setOutputRate	KEYWORD2
+setLowPassFilter	KEYWORD2
+setLowPower	KEYWORD2
+requestOneShot	KEYWORD2
+reset	KEYWORD2
+readPressure	KEYWORD2
+readTemp	KEYWORD2
