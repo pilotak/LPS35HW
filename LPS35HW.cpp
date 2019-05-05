@@ -65,6 +65,7 @@ void LPS35HW::setLowPassFilter(LowPassFilter filter) {
     _config |= ((uint8_t)filter << 2);
 
     writeRegister(LPS35HW_CTRL_REG1, _config);
+    writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b10000100);  // Reset and reboot
 }
 
 void LPS35HW::setLowPower(bool on) {
@@ -75,7 +76,7 @@ void LPS35HW::setLowPower(bool on) {
 
 void LPS35HW::requestOneShot() {
     if (((_config >> 4) & 0b111) == OutputRate_OneShot) {  // OneShot
-        writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b1);  // new conversion
+        writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b1);  // New conversion
     }
 }
 
