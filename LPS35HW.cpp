@@ -33,13 +33,14 @@ SOFTWARE.
 
 #include "LPS35HW.h"
 
-LPS35HW::LPS35HW():
-    _addr(LPS35HW_ADDRESS),
+LPS35HW::LPS35HW(uint8_t addr):
+    _addr(addr),
     _config(LPS35HW_DEFAULT_CTRL_REG1) {
 }
 
 bool LPS35HW::begin() {
     _wire = &Wire;
+    Wire.begin();
     return init();
 }
 
@@ -48,6 +49,16 @@ bool LPS35HW::begin(TwoWire *theWire) {
     if (theWire) {
         _wire = theWire;
         return init();
+    }
+
+    return false;
+}
+
+bool LPS35HW::init() {
+    if (readRegister(LPS35HW_WHO_AM_I) == LPS35HW_ID) {
+        writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b10000100);  // Reset and reboot
+        writeRegister(LPS35HW_CTRL_REG1, _config);
+        return true;
     }
 
     return false;
@@ -85,8 +96,8 @@ void LPS35HW::reset() {
 }
 
 float LPS35HW::readPressure() {
-    int32_t value = readRegister(LPS35HW_PRESS_OUT_H) << 16;
-    value |= (readRegister(LPS35HW_PRESS_OUT_L) << 8);
+    int32_t value = static_cast<int32_t>(readRegister(LPS35HW_PRESS_OUT_H)) << 16;
+    value |= (static_cast<int32_t>(readRegister(LPS35HW_PRESS_OUT_L)) << 8);
     value |= readRegister(LPS35HW_PRESS_OUT_XL);
 
     if (value != 0xFFFFFF) {
@@ -100,21 +111,11 @@ float LPS35HW::readTemp() {
     int16_t value = (readRegister(LPS35HW_TEMP_OUT_H) << 8);
     value |= readRegister(LPS35HW_TEMP_OUT_L);
 
-    if (value != 0xFFFF) {
+    if (value != (int16_t)0xFFFF) {
         return static_cast<float>(value) / 100.0;
     }
 
     return NAN;
-}
-
-bool LPS35HW::init() {
-    if (readRegister(LPS35HW_WHO_AM_I) == LPS35HW_ID) {
-        writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b10000100);  // Reset and reboot
-        writeRegister(LPS35HW_CTRL_REG1, _config);
-        return true;
-    }
-
-    return false;
 }
 
 void LPS35HW::writeRegister(Registers reg, uint8_t value) {

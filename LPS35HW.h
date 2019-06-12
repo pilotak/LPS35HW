@@ -29,7 +29,7 @@ SOFTWARE.
 
 #include <Wire.h>
 
-#define LPS35HW_ADDRESS 0x5D
+#define LPS35HW_ADDRESS 0x5C
 #define LPS35HW_DEFAULT_CTRL_REG1 0b00100010  // continuous@10Hz, no low pass filter, BDU on
 #define LPS35HW_DEFAULT_CTRL_REG2 0b00010000
 #define LPS35HW_ID 0b10110001  // same as LPS22HB, LPS33W, LPS33HW
@@ -77,7 +77,7 @@ class LPS35HW {
         LPS35HW_LPFP_RES      = 0x33
     };
 
-    LPS35HW();
+    LPS35HW(uint8_t addr = LPS35HW_ADDRESS);
     bool begin();
     bool begin(TwoWire *theWire);
     void setOutputRate(OutputRate rate);

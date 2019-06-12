@@ -1,0 +1,22 @@
+language: python
+python:
+  - "2.7"
+
+sudo: false
+cache:
+  directories:
+    - "~/.platformio"
+
+install:
+  - pip install -U platformio
+  - platformio update
+
+script:
+  - platformio ci --lib="." --board=uno --board=zero --board=d1_mini --board=bluepill_f103c8 "./examples/LPS35HW_test"
+  - platformio ci --lib="." --board=uno --board=zero --board=d1_mini --board=bluepill_f103c8 "./examples/LPS35HW_low_power"
+  - platformio ci --lib="." --board=zero --board=d1_mini "./examples/LPS35HW_fast_reading"
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
