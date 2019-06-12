@@ -1,5 +1,6 @@
 # Pressure sensor library for Arduino
 [![Build Status](https://travis-ci.org/pilotak/LPS35HW.svg?branch=master)](https://travis-ci.org/pilotak/LPS35HW)
+[![Framework Badge Arduino](https://img.shields.io/badge/framework-arduino-00979C.svg)](https://arduino.cc)
 
 ## Supported barometers
 - **LPS35HW**
