@@ -1,6 +1,6 @@
 {
   "name": "LPS35HW",
-  "keywords": "pressure, temperature, LPS22, LPS22HB, LPS33Q, LPS33HW",
+  "keywords": "pressure, temperature, baro, LPS35HW, LPS22, LPS22HB, LPS33Q, LPS33HW",
   "description": "LPS35HW pressure sensor library",
   "repository":
   {

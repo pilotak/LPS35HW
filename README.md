@@ -1,12 +1,11 @@
-# Pressure sensor library for Arduino
+# LPS35HW pressure sensor library
 [![Build Status](https://travis-ci.org/pilotak/LPS35HW.svg?branch=master)](https://travis-ci.org/pilotak/LPS35HW)
 [![Framework Badge Arduino](https://img.shields.io/badge/framework-arduino-00979C.svg)](https://arduino.cc)
 
-## Supported barometers
-- **LPS35HW**
-- **LPS22HB**
-- **LPS33W**
-- **LPS33HW**
+## Fully compatible with following barometers
+- LPS22HB
+- LPS33W
+- LPS33HW
 
 This library works with metric units, if you need imperial please consider using [MeteoFunctions](https://github.com/pilotak/MeteoFunctions) library.
 
