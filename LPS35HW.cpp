@@ -75,8 +75,8 @@ void LPS35HW::setLowPassFilter(LowPassFilter filter) {
     _config &= ~(0b1100);
     _config |= ((uint8_t)filter << 2);
 
+    // writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b10000100);  // Reset and reboot
     writeRegister(LPS35HW_CTRL_REG1, _config);
-    writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b10000100);  // Reset and reboot
 }
 
 void LPS35HW::setLowPower(bool on) {
@@ -92,6 +92,8 @@ void LPS35HW::requestOneShot() {
 }
 
 void LPS35HW::reset() {
+    _config = LPS35HW_DEFAULT_CTRL_REG1;
+
     writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b100);
 }
 
@@ -101,6 +103,10 @@ float LPS35HW::readPressure() {
     value |= readRegister(LPS35HW_PRESS_OUT_XL);
 
     if (value != 0xFFFFFF) {
+        if (value & 0x800000) {
+            value = (0xFF000000 | value);
+        }
+
         return static_cast<float>(value) / 4096.0;
     }
 
