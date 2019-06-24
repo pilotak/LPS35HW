@@ -15,7 +15,8 @@ void setup() {
     }
 
     lps.setLowPower(true);
-    lps.setOutputRate(LPS35HW::OutputRate_OneShot);  // get results on demand, always set output rate as last
+    lps.setOutputRate(LPS35HW::OutputRate_OneShot);  // get results on demand
+    // lps.setLowPassFilter(LPS35HW::LowPassFilter_ODR9);  // default is off
 }
 
 void loop() {

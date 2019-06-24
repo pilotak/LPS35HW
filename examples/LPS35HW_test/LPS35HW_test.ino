@@ -12,8 +12,9 @@ void setup() {
         while (1) {}
     }
 
-    lps.setLowPassFilter(LPS35HW::LowPassFilter_ODR9);  // filter last 9 samples
-    lps.setOutputRate(LPS35HW::OutputRate_1Hz);  // always set output rate as last
+    lps.setLowPassFilter(LPS35HW::LowPassFilter_ODR9);  // filter last 9 samples, default off
+    lps.setOutputRate(LPS35HW::OutputRate_1Hz);  // optional, default is 10Hz
+    // lps.setLowPower(true);  // optional, default is off
 }
 
 void loop() {

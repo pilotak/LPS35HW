@@ -75,7 +75,6 @@ void LPS35HW::setLowPassFilter(LowPassFilter filter) {
     _config &= ~(0b1100);
     _config |= ((uint8_t)filter << 2);
 
-    // writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b10000100);  // Reset and reboot
     writeRegister(LPS35HW_CTRL_REG1, _config);
 }
 
@@ -92,15 +91,14 @@ void LPS35HW::requestOneShot() {
 }
 
 void LPS35HW::reset() {
-    _config = LPS35HW_DEFAULT_CTRL_REG1;
-
-    writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b100);
+    writeRegister(LPS35HW_CTRL_REG2, LPS35HW_DEFAULT_CTRL_REG2 | 0b10000100);  // Reset and reboot
+    writeRegister(LPS35HW_CTRL_REG1, _config);  // Load previous config
 }
 
 float LPS35HW::readPressure() {
-    int32_t value = static_cast<int32_t>(readRegister(LPS35HW_PRESS_OUT_H)) << 16;
+    int32_t value = readRegister(LPS35HW_PRESS_OUT_XL);
     value |= (static_cast<int32_t>(readRegister(LPS35HW_PRESS_OUT_L)) << 8);
-    value |= readRegister(LPS35HW_PRESS_OUT_XL);
+    value |= static_cast<int32_t>(readRegister(LPS35HW_PRESS_OUT_H)) << 16;  // Important to read as last for BDU to work
 
     if (value != 0xFFFFFF) {
         if (value & 0x800000) {

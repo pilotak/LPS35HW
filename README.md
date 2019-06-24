@@ -1,4 +1,4 @@
-# LPS35HW pressure sensor library
+# LPS35HW pressure sensor library (I2C)
 [![Build Status](https://travis-ci.org/pilotak/LPS35HW.svg?branch=master)](https://travis-ci.org/pilotak/LPS35HW)
 [![Framework Badge Arduino](https://img.shields.io/badge/framework-arduino-00979C.svg)](https://arduino.cc)
 
@@ -7,7 +7,7 @@
 - LPS33W
 - LPS33HW
 
-This library works with metric units, if you need imperial please consider using [MeteoFunctions](https://github.com/pilotak/MeteoFunctions) library.
+This library works with metric units, if you need imperial please consider using [MeteoFunctions](https://github.com/pilotak/MeteoFunctions) library, please see example below.
 
 ```cpp
 #include <Wire.h>
