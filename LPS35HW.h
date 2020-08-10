@@ -23,8 +23,8 @@ SOFTWARE.
 
 #if ARDUINO >= 100
     #include "Arduino.h"
-#else
-    #include "WProgram.h"
+//#else
+//    #include "WProgram.h"
 #endif
 
 #include <Wire.h>
@@ -58,7 +58,17 @@ class LPS35HW {
     enum LowPassFilter {
         LowPassFilter_Off   = 0b00,
         LowPassFilter_ODR9  = 0b10,
-        LowPassFilter_ODR20 = 0b011,
+        LowPassFilter_ODR20 = 0b011
+    };
+
+    enum FifoCTRL {
+        Bypass          = 0b00000000,
+        FIFO            = 0b00100000,
+        Stream          = 0b01000000,
+        StreamToFIFO    = 0b01100000,
+        BypassToStream  = 0b10000000,
+        DynamicStream   = 0b11000000,
+        BypassToFIFO    = 0b11100000
     };
 
     enum Registers {
@@ -92,6 +102,7 @@ class LPS35HW {
     bool begin(TwoWire *theWire);
     void setOutputRate(OutputRate rate);
     void setLowPassFilter(LowPassFilter filter);
+    void setFIFO(FifoCTRL mode);
     void setLowPower(bool on);
     void requestOneShot();
     void reset();
