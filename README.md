@@ -1,5 +1,5 @@
 # LPS35HW pressure sensor library (I2C)
-[![Build Status](https://travis-ci.org/pilotak/LPS35HW.svg?branch=master)](https://travis-ci.org/pilotak/LPS35HW)
+[![build](https://github.com/pilotak/LPS35HW/workflows/build/badge.svg)](https://github.com/pilotak/LPS35HW/actions) 
 [![Framework Badge Arduino](https://img.shields.io/badge/framework-arduino-00979C.svg)](https://arduino.cc)
 
 ## Fully compatible with following barometers
